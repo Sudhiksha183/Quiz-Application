@@ -9,7 +9,7 @@ public class Database {
 
     public static Connection ConnectDb() {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdatabase", "root", "Sujatha@1");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/quizdatabase", "root", password);
             // System.out.println("Connection established successfully");
             return conn;
         } catch (SQLException e) {
