@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="533.0" prefWidth="759.0" stylesheets="@../../../Styles/MainForm.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.quizapp.StudentMainScreen">
+   <children>
+      <StackPane fx:id="StackPanel" layoutX="187.0" layoutY="-77.0" prefHeight="533.0" prefWidth="759.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </StackPane>
+      <ToolBar prefHeight="32.0" prefWidth="759.0" styleClass="main-bg" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+            <FlowPane prefHeight="28.0" prefWidth="400.0">
+               <children>
+                <Button fx:id="back" mnemonicParsing="false" onAction="#backCode" prefHeight="26.0" prefWidth="67.0" styleClass="nav-btn" text="Back" />
+               </children>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </FlowPane>
+        </items>
+      </ToolBar>
+   </children>
+</AnchorPane>
