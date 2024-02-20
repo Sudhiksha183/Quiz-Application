@@ -1,0 +1,125 @@
+create database quizDatabase;
+use quizDatabase;
+
+create TABLE quiz ( id INTEGER PRIMARY KEY , title VARCHAR(50) );
+
+create TABLE question(
+id integer primary key,
+question varchar(500),
+option1 varchar(500),
+option2 varchar(500),
+option3 varchar(500),
+option4 varchar(500),
+answer varchar(1000) ,
+quiz_id integer ,
+foreign key(quiz_id) references quiz(id) on delete cascade);
+drop table question;
+select * from quiz;
+select * from question;
+
+DELETE FROM quiz WHERE id=1;
+drop table quiz;
+
+
+create table student(
+id integer primary key,
+firstName varchar(20),
+lastName varchar(20),
+mobile varchar(20),
+email varchar(20),
+password varchar(20),
+gender char);
+
+select* from student;
+
+create table quiz_results
+(
+quiz_result_id int not null primary key,
+quiz_id int not null,
+student_id int not null,
+right_answers int not null,
+date_time timestamp  not null,
+foreign key (quiz_id) references quiz(id) ,
+foreign key (student_id) references student(id)
+);
+drop table  quiz_result_detail;
+create table quiz_result_detail
+(
+id int not null primary key,
+quiz_result_id int not null ,
+question_id int not null,
+user_answer varchar(200) not null,
+foreign key (quiz_result_id) references quiz_results(quiz_result_id),
+foreign key (question_id) references question(id)
+);
+select * from quiz_results;quizquestionquiz_resultsstudent
+
+DELIMITER //
+
+create trigger update_remarks1 
+before insert on quiz_results
+for each row
+begin
+if new.right_answers>=0 then
+set new.Remark= "good";
+end if;
+end;
+//
+
+drop trigger if EXISTS update_remarks1;
+
+DELIMITER //
+CREATE PROCEDURE CalculateGrade(IN rightAnswers INT)
+BEGIN
+    DECLARE Remark VARCHAR(10);
+
+    IF right_answers >= 8 THEN
+        SET Remark = 'A';
+    ELSEIF right_answers >= 6 THEN
+        SET Remark = 'B';
+    ELSEIF right_answers >= 4 THEN
+        SET Remark = 'C';
+    ELSE
+        SET Remark = 'D';
+    END IF;
+
+    SELECT Remark;
+END;
+//
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE update_remark_proc(IN right_answers INT)
+BEGIN
+    -- Determine the Remark value based on right_answers
+    IF right_answers >= 0 THEN
+        SET @remark_val = 'B';
+    ELSEIF
+    right_answers >=2  THEN
+     SET @remark_val = 'A';
+	ELSE
+        SET @remark_val = NULL; -- Set to whatever default value you want when right_answers <= 2
+    END IF;
+END;
+//
+
+
+DELIMITER //
+CREATE TRIGGER update_remarks1
+BEFORE INSERT ON quiz_results
+FOR EACH ROW
+BEGIN
+    -- Call the stored procedure to determine the Remark value
+    CALL update_remark_proc(NEW.right_answers);
+    -- Set the Remark value based on the stored procedure result
+    SET NEW.Remarks = @remark_val;
+END;
+//
+
+DROP PROCEDURE if exists update_remark_proc;
+
+delete from student where id=2;
+
+select * from quiz_results;
